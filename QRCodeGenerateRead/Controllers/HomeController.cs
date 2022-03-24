@@ -57,15 +57,27 @@ namespace QRCodeGenerateRead.Controllers
             return View();
         }
 
+        public IActionResult ReadQRCode()
+        {
+            string webRootPath = _hostEnvironment.WebRootPath;
+            var path= webRootPath+ "\\Images\\QRCodeNew.png";
+            var reader = new BarcodeReaderGeneric();
+            Bitmap image =(Bitmap)Image.FromFile(path);
+
+            using(image)
+            {
+                LuminanceSource source;
+                source = new ZXing.Windows.Compatibility.BitmapLuminanceSource(image);
+                Result result = reader.Decode(source);
+                ViewBag.Text = result.Text;
+            }
+
+            return View("Index");
+        }
+
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

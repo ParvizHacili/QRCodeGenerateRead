@@ -16,10 +16,20 @@
     <br />
 </form>
 
-@if(!string.IsNullOrEmpty(ViewBag.URL))
+    @if(!string.IsNullOrEmpty(ViewBag.URL))
+        {
+            <div class="col-lg-12">
+                <img src="@ViewBag.URL">
+            </div>
+        }
+  
+    <div class="col-lg-12">
+        <a href="/Home/ReadQRCode">Read Image and show text</a>
+    </div>
+
+    @if(!string.IsNullOrEmpty(ViewBag.Text))
     {
         <div class="col-lg-12">
-            <img src="@ViewBag.URL">
+            QR Code Text: @ViewBag.Text
         </div>
     }
-
